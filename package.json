@@ -1,6 +1,6 @@
 {
   "name": "hexo-generator-category",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Category generator for Hexo.",
   "main": "index",
   "scripts": {
