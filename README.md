@@ -13,12 +13,10 @@ $ npm install hexo-generator-category --save
 ## Options
 
 ``` yaml
-category_dir: categories
 category_generator:
   per_page: 10
 ```
 
-- **category_dir**: Category directory
 - **per_page**: Posts displayed per page. (0 = disable pagination)
 
 ## License
