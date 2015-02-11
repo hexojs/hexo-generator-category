@@ -1,3 +1,5 @@
+'use strict';
+
 var should = require('chai').should();
 var Hexo = require('hexo');
 
@@ -6,6 +8,7 @@ describe('Category generator', function(){
   var Post = hexo.model('Post');
   var generator = require('../lib/generator').bind(hexo);
   var posts;
+  var locals;
 
   // Default config
   hexo.config.category_generator = {
@@ -28,13 +31,15 @@ describe('Category generator', function(){
       }).then(function(){
         return posts[3].setCategories(['foo']);
       });
+    }).then(function(){
+      locals = hexo.locals.toObject();
     });
   });
 
   it('pagination enabled', function(){
     hexo.config.category_generator.per_page = 2;
 
-    var result = generator(hexo.locals);
+    var result = generator(locals);
 
     result.length.should.eql(3);
 
@@ -83,7 +88,7 @@ describe('Category generator', function(){
   it('pagination disabled', function(){
     hexo.config.category_generator.per_page = 0;
 
-    var result = generator(hexo.locals);
+    var result = generator(locals);
 
     result.length.should.eql(2);
 
