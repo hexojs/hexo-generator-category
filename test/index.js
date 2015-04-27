@@ -83,6 +83,9 @@ describe('Category generator', function(){
     result[2].data.next.should.eql(0);
     result[2].data.next_link.should.eql('');
     result[2].data.category.should.eql('bar');
+
+    // Restore config
+    hexo.config.category_generator.per_page = 10;
   });
 
   it('pagination disabled', function(){
@@ -121,5 +124,23 @@ describe('Category generator', function(){
     result[1].data.next.should.eql(0);
     result[1].data.next_link.should.eql('');
     result[1].data.category.should.eql('bar');
+
+    // Restore config
+    hexo.config.category_generator.per_page = 10;
+  });
+
+  it('custom pagination_dir', function(){
+    hexo.config.category_generator.per_page = 2;
+    hexo.config.pagination_dir = 'yo';
+
+    var result = generator(locals);
+
+    result.map(function(item){
+      return item.path;
+    }).should.eql(['categories/foo/', 'categories/foo/yo/2/', 'categories/bar/']);
+
+    // Restore config
+    hexo.config.category_generator.per_page = 10;
+    hexo.config.pagination_dir = 'page';
   });
 });
