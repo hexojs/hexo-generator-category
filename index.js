@@ -2,9 +2,7 @@
 
 'use strict';
 
-var assign = require('object-assign');
-
-hexo.config.category_generator = assign({
+hexo.config.category_generator = Object.assign({
   per_page: typeof hexo.config.per_page === 'undefined' ? 10 : hexo.config.per_page
 }, hexo.config.category_generator);
 
