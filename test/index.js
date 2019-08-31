@@ -33,7 +33,7 @@ describe('Category generator', () => {
           locals = hexo.locals.toObject();
         });
     });
-  }); 
+  });
 
   it('pagination enabled', () => {
     hexo.config.category_generator.per_page = 2;
