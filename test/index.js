@@ -1,14 +1,14 @@
 'use strict';
 
-var should = require('chai').should(); // eslint-disable-line
-var Hexo = require('hexo');
+const should = require('chai').should(); // eslint-disable-line
+const Hexo = require('hexo');
 
-describe('Category generator', function() {
-  var hexo = new Hexo(__dirname, {silent: true});
+describe('Category generator', () => {
+  const hexo = new Hexo(__dirname, {silent: true});
   hexo.init();
-  var Post = hexo.model('Post');
-  var generator = require('../lib/generator').bind(hexo);
-  var posts,
+  const Post = hexo.model('Post');
+  const generator = require('../lib/generator').bind(hexo);
+  let posts,
     locals;
 
   // Default config
@@ -16,35 +16,33 @@ describe('Category generator', function() {
     per_page: 10
   };
 
-  before(function() {
+  before(() => {
     return Post.insert([
       {source: 'foo', slug: 'foo', date: 1e8},
       {source: 'bar', slug: 'bar', date: 1e8 + 1},
       {source: 'baz', slug: 'baz', date: 1e8 - 1},
       {source: 'boo', slug: 'boo', date: 1e8 + 2}
-    ]).then(function(data) {
+    ]).then((data) => {
       posts = data;
 
-      return posts[0].setCategories(['foo']).then(function() {
-        return posts[1].setCategories(['bar']);
-      }).then(function() {
-        return posts[2].setCategories(['foo']);
-      }).then(function() {
-        return posts[3].setCategories(['foo']);
-      });
-    }).then(function() {
-      locals = hexo.locals.toObject();
+      return posts[0].setCategories(['foo'])
+        .then(() => posts[1].setCategories(['bar']))
+        .then(() => posts[2].setCategories(['foo']))
+        .then(() => posts[3].setCategories(['foo']))
+        .then(() => {
+          locals = hexo.locals.toObject();
+        });
     });
   });
 
-  it('pagination enabled', function() {
+  it('pagination enabled', () => {
     hexo.config.category_generator.per_page = 2;
 
-    var result = generator(locals);
+    const result = generator(locals);
 
     result.length.should.eql(3);
 
-    for (var i = 0, len = result.length; i < len; i++) {
+    for (const i in result) {
       result[i].layout.should.eql(['category', 'archive', 'index']);
     }
 
@@ -89,14 +87,14 @@ describe('Category generator', function() {
     hexo.config.category_generator.per_page = 10;
   });
 
-  it('pagination disabled', function() {
+  it('pagination disabled', () => {
     hexo.config.category_generator.per_page = 0;
 
-    var result = generator(locals);
+    const result = generator(locals);
 
     result.length.should.eql(2);
 
-    for (var i = 0, len = result.length; i < len; i++) {
+    for (const i in result) {
       result[i].layout.should.eql(['category', 'archive', 'index']);
     }
 
@@ -130,15 +128,13 @@ describe('Category generator', function() {
     hexo.config.category_generator.per_page = 10;
   });
 
-  it('custom pagination_dir', function() {
+  it('custom pagination_dir', () => {
     hexo.config.category_generator.per_page = 2;
     hexo.config.pagination_dir = 'yo';
 
-    var result = generator(locals);
+    const result = generator(locals);
 
-    result.map(function(item) {
-      return item.path;
-    }).should.eql(['categories/foo/', 'categories/foo/yo/2/', 'categories/bar/']);
+    result.map((item) => item.path).should.eql(['categories/foo/', 'categories/foo/yo/2/', 'categories/bar/']);
 
     // Restore config
     hexo.config.category_generator.per_page = 10;
