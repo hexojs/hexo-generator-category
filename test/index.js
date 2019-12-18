@@ -22,7 +22,7 @@ describe('Category generator', () => {
       {source: 'bar', slug: 'bar', date: 1e8 + 1},
       {source: 'baz', slug: 'baz', date: 1e8 - 1},
       {source: 'boo', slug: 'boo', date: 1e8 + 2}
-    ]).then((data) => {
+    ]).then(data => {
       posts = data;
 
       return posts[0].setCategories(['foo'])
@@ -134,7 +134,7 @@ describe('Category generator', () => {
 
     const result = generator(locals);
 
-    result.map((item) => item.path).should.eql(['categories/foo/', 'categories/foo/yo/2/', 'categories/bar/']);
+    result.map(item => item.path).should.eql(['categories/foo/', 'categories/foo/yo/2/', 'categories/bar/']);
 
     // Restore config
     hexo.config.category_generator.per_page = 10;
