@@ -1,6 +1,6 @@
 # hexo-generator-category
 
-[![Build Status](https://travis-ci.org/hexojs/hexo-generator-category.svg?branch=master)](https://travis-ci.org/hexojs/hexo-generator-category)
+[![Build Status](https://github.com/hexojs/hexo-generator-category/workflows/Tester/badge.svg)](https://github.com/hexojs/hexo-generator-category/actions?query=workflow%3ATester)
 [![NPM version](https://badge.fury.io/js/hexo-generator-category.svg)](https://www.npmjs.com/package/hexo-generator-category)
 [![Coverage Status](https://img.shields.io/coveralls/hexojs/hexo-generator-category.svg)](https://coveralls.io/r/hexojs/hexo-generator-category?branch=master)
 
