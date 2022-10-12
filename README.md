@@ -27,4 +27,4 @@ category_generator:
 
 MIT
 
-[Hexo]: http://hexo.io/
+[Hexo]: https://hexo.io/
